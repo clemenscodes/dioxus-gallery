@@ -1,0 +1,13 @@
+[package]
+name = "dioxus-gallery"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+description = "Storybook for Dioxus: a domain-agnostic component previewer and isolator."
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+dioxus = { workspace = true, features = ["macro"] }
