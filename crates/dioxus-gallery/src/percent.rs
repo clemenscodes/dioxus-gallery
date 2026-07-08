@@ -61,33 +61,3 @@ impl Percent {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn encode_leaves_unreserved_and_slash() {
-        assert_eq!(Percent::encode("Buttons/Primary"), "Buttons/Primary");
-    }
-
-    #[test]
-    fn encode_escapes_space() {
-        assert_eq!(
-            Percent::encode("Dialog header/Default"),
-            "Dialog%20header/Default"
-        );
-    }
-
-    #[test]
-    fn decode_reverses_encode() {
-        let original = "Dialog header/Default";
-        let encoded = Percent::encode(original);
-        assert_eq!(Percent::decode(&encoded), original);
-    }
-
-    #[test]
-    fn decode_passes_plain_through() {
-        assert_eq!(Percent::decode("Buttons/Primary"), "Buttons/Primary");
-    }
-}

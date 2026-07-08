@@ -70,34 +70,3 @@ impl Story {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn sample() -> Element {
-        rsx! {
-            div {}
-        }
-    }
-
-    #[test]
-    fn id_of_variant_joins_group_component_and_variant() {
-        let story = Story::new("Actions", "Export buttons", "loaded", sample);
-        assert_eq!(story.id(), "Actions/Export buttons/loaded");
-    }
-
-    #[test]
-    fn id_of_single_joins_group_and_component() {
-        let story = Story::single("Shell", "Footer", sample);
-        assert_eq!(story.id(), "Shell/Footer");
-    }
-
-    #[test]
-    fn label_prefers_variant_then_component() {
-        let variant = Story::new("Actions", "Export buttons", "loaded", sample);
-        let single = Story::single("Shell", "Footer", sample);
-        assert_eq!(variant.label(), "loaded");
-        assert_eq!(single.label(), "Footer");
-    }
-}

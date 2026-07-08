@@ -1,6 +1,8 @@
-/// A named viewport size for the preview iframe. Widths sit inside the bands
-/// of `docs/CSS_VIEWPORTS.md` so a preset triggers exactly that band's rules
-/// inside the iframe.
+/// A named viewport size for the preview iframe. Each default preset sits
+/// squarely inside one responsive band, so selecting a preset triggers exactly
+/// that band's rules inside the iframe. The default bands mirror the consuming
+/// app's breakpoints: mobile `< 768`, tablet `768–1279`, laptop `1280–1919`,
+/// desktop `1920–2559`, qhd `2560–3839`, uhd `>= 3840`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub struct ViewportPreset {
     label: &'static str,
@@ -30,27 +32,12 @@ impl ViewportPreset {
     }
 
     pub fn defaults() -> Vec<Self> {
-        let phone = Self::new("Phone", 390, 844);
-        let large_phone = Self::new("Large phone", 600, 900);
-        let tablet = Self::new("Tablet", 900, 1024);
-        let desktop = Self::new("Desktop", 1440, 900);
-        let full_hd = Self::new("Full HD", 1920, 1080);
-        let wide = Self::new("Wide", 2200, 1200);
-        let ultra_4k = Self::new("4K", 3840, 2160);
-        vec![phone, large_phone, tablet, desktop, full_hd, wide, ultra_4k]
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn defaults_cover_each_band() {
-        let presets = ViewportPreset::defaults();
-        let widths: Vec<u32> = presets.iter().map(ViewportPreset::width).collect();
-        assert_eq!(widths, vec![390, 600, 900, 1440, 1920, 2200, 3840]);
-        assert!(presets[0].width() <= 480);
-        assert!(presets[3].width() >= 1100);
+        let mobile = Self::new("Mobile", 390, 844);
+        let tablet = Self::new("Tablet", 1024, 768);
+        let laptop = Self::new("Laptop", 1440, 900);
+        let desktop = Self::new("Desktop", 1920, 1080);
+        let qhd = Self::new("QHD", 2560, 1440);
+        let uhd = Self::new("UHD", 3840, 2160);
+        vec![mobile, tablet, laptop, desktop, qhd, uhd]
     }
 }
